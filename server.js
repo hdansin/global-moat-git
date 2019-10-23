@@ -23,8 +23,8 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
-app.get("/api/timestamp", function(req, res) {
-  
+app.get("/api/timestamp/:date_string?", function(req, res) {
+
 })
 
 // listen for requests :)
