@@ -27,6 +27,9 @@ app.get("/api/timestamp/:date_string?", function(req, res) {
   if (!req.params.date_string) {
     var date = new Date();
   }
+  else if (req.params.date_string.length > 10) {
+    var date = new Date(parseInt(req.params.date_string));
+  }
   else {
     var date = new Date(req.params.date_string);
   }
