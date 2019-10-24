@@ -24,16 +24,24 @@ app.get("/api/hello", function (req, res) {
 });
 
 app.get("/api/timestamp/:date_string?", function(req, res) {
-  if (!req.params.date_string) {
+  // construct the date
+  if (!req.params.date_string) { // check if empty and contruct new (current) date if empty
     var date = new Date();
   }
-  else if (req.params.date_string.length > 10) {
+  else if (req.params.date_string.length > 10) { // check if is a utc string and pass int to date if it is
     var date = new Date(parseInt(req.params.date_string));
   }
-  else {
+  else { // otherwise it should be a natural date
     var date = new Date(req.params.date_string);
   }
-  res.json({"unix" : date.getTime(), "utc" : date.toUTCString()});
+
+  // check if invalid
+  if (date.toUTCString() === "Invalid Date") {
+    res.json({ "error" : "Invalid Date"})
+  }
+  else {
+    res.json({"unix" : date.getTime(), "utc" : date.toUTCString()});
+  }
 });
 
 // listen for requests :)
